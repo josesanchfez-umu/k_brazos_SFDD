@@ -19,6 +19,6 @@ from .armnormal import ArmNormal
 from .bandit import Bandit
 
 # Lista de módulos o clases públicas
-__all__ = ['Arm', 'ArmNormal', 'Bandit']
+__all__ = ['Arm', 'ArmNormal', 'Bandit', 'ArmBernoulli', 'ArmBinomial', 'ArmNormal']
 
 
