@@ -16,6 +16,10 @@ class Softmax(Algorithm):
         Selecciona un brazo basado en la política Softmax.
         :return: Índice del brazo seleccionado.
         """
+
+        if self.temperature == 0:
+            return np.argmax(self.values)  # Selecciona el mejor brazo (greedy)
+
         exp_values = np.exp(self.values / self.temperature)
         probabilities = exp_values / np.sum(exp_values)
         return np.random.choice(self.k, p=probabilities)
