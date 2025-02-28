@@ -16,6 +16,7 @@ For more details about GPL-3.0: https://www.gnu.org/licenses/gpl-3.0.html
 from .algorithm import Algorithm
 from .epsilon_greedy import EpsilonGreedy
 from .softmax import Softmax
+from .gradient_bandit import GradientBandit
 from .ucb1 import UCB1
 from .ucb2 import UCB2
 
