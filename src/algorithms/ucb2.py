@@ -12,7 +12,7 @@ class UCB2(Algorithm):
         super().__init__(k)
         self.alpha = alpha
         self.epochs = np.zeros(k, dtype=int)
-        self.tau = np.ones(k)  # Aseguramos que tau nunca sea menor que 1.
+        self.tau = np.ones(k)
 
     def select_arm(self) -> int:
         """
@@ -22,11 +22,11 @@ class UCB2(Algorithm):
         if total_counts < self.k:
             return total_counts  # Explora cada brazo al menos una vez
 
-        # Evitar división por cero y valores negativos en logaritmo
         safe_tau = np.maximum(self.tau, 1)
         safe_counts = np.maximum(total_counts, 1)
+        safe_log_term = np.maximum(np.e * safe_counts / safe_tau, 1.0001)  # Evita valores ≤ 0 en log()
 
-        ucb_values = self.values + np.sqrt(((1 + self.alpha) * np.log(np.e * safe_counts / safe_tau)) / (2 * safe_tau))
+        ucb_values = self.values + np.sqrt(((1 + self.alpha) * np.log(safe_log_term)) / (2 * safe_tau))
 
         return np.argmax(ucb_values)
 
@@ -36,6 +36,8 @@ class UCB2(Algorithm):
         """
         super().update(chosen_arm, reward)
 
-        # Incrementar la época y asegurar que tau no crezca exponencialmente
-        self.epochs[chosen_arm] += 1
-        self.tau[chosen_arm] = np.minimum(np.ceil((1 + self.alpha) ** self.epochs[chosen_arm]), 1e6)  # Límite superior
+        # Control del crecimiento exponencial para evitar overflow
+        max_exp = 100  # Evita crecimiento excesivo
+        self.epochs[chosen_arm] = np.minimum(self.epochs[chosen_arm] + 1, max_exp)
+
+        self.tau[chosen_arm] = np.minimum(np.ceil((1 + self.alpha) ** self.epochs[chosen_arm]), 1e6)
