@@ -30,6 +30,9 @@ Cabe destacar que en la carpeta `\docs` fue suprimida debido a que la consideram
 ## Instalación y Uso
 No es necesaria ninguna instrucción de instalación, más allá de la creación de un entorno virtual con el fichero requirements correspondiente al entorno en el que se quiera ejecutar en caso de no querer instalar de forma directa las librerías necesarias.
 
+Hemos requerido modificar las referencias al entorno Github, y hemos cambiado la preparación y duplicación de este entorno a cada notebook de manera individual, ya que cuando queríamos entrar a cada uno de ellos desde el main, Colab nos creaba una instancia nueva y se perdía cualquier otra importación en el main. Por este motivo, hemos optado por realizar la importación y clonación correspondiente de forma individual para cada estudio.
+En el caso de querer utilizar un requirements u otro, sería necesario cambiar la referencia dentro de cada notebook en la celda de instalación, sustituyendo las referencias de todas las librerías por el fichero en cuestión.
+
 ## Tecnologías Utilizadas
 Las herramientas y tecnologías empleadas en el proyecto han sido:
 
